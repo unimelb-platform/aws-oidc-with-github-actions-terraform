@@ -6,7 +6,7 @@
         "ci-condition": {
             "name": "github@^1.9.0",
             "options": {
-                "defaultBranch": "master"
+                "defaultBranch": "main"
             }
         },
         "changelog-generator": {
