@@ -1,9 +1,6 @@
 
-data "aws_caller_identity" "current" {}
 
 data "aws_iam_policy_document" "assume_role" {
-  count = var.enabled ? 1 : 0
-
   statement {
     sid = "1"
 
@@ -15,7 +12,7 @@ data "aws_iam_policy_document" "assume_role" {
 
     principals {
       type        = "Federated"
-      identifiers = [aws_iam_openid_connect_provider.github[0].arn]
+      identifiers = [aws_iam_openid_connect_provider.github.arn]
     }
 
     condition {

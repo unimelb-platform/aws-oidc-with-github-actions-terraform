@@ -1,9 +1,3 @@
-variable "enabled" {
-  default     = true
-  description = "Flag to enable or disable the creation of resources."
-  type        = bool
-}
-
 variable "oidc_url" {
   description = "The URL of the identity provider. Corresponds to the iss claim."
   type        = string
@@ -32,6 +26,12 @@ variable "github_repositories" {
   type        = list(string)
 }
 
+variable "create_role" {
+  type        = string
+  description = "(optional) Whether to create an IAM role for the OIDC provider. Defaults to true."
+  default     = "true"
+}
+
 variable "iam_role_name" {
   description = "Friendly name of the role. If omitted, Terraform will assign a random, unique name."
   type        = string
@@ -44,10 +44,16 @@ variable "iam_role_description" {
   default     = "IAM role to enable GitHub OIDC access"
 }
 
-variable "iam_role_policy" {
-  description = "Name of the policy to be attacherd to the role."
-  type        = string
-  default     = "ReadOnlyAccess"
+variable "iam_role_policy_arns" {
+  description = "(optional) Arns of the policies to be attached to the role. Defaults to an empty list."
+  type        = list(string)
+  default     = []
+}
+
+variable "iam_role_inline_policies" {
+  type        = map(string)
+  description = "(optional) map of inline policies to attach to role. Defaults to an empty map."
+  default     = {}
 }
 
 variable "max_session_duration" {

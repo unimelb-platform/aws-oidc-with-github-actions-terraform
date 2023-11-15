@@ -1,29 +1,54 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
 repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+      # All
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+        args:
+          - --allow-multiple-documents
+      - id: check-json
+      - id: check-added-large-files
+        args:
+          - --maxkb=1024
+      - id: detect-aws-credentials
+        args:
+          - --allow-missing-credentials
+      - id: name-tests-test
+
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.50.0
+    rev: v1.83.4
     hooks:
       - id: terraform_fmt
       - id: terraform_validate
+      - id: terraform_docs
+        args:
+          - "--args=--lockfile=false"
       - id: terraform_tflint
         args:
-          - '--args=--only=terraform_deprecated_interpolation'
-          - '--args=--only=terraform_deprecated_index'
-          - '--args=--only=terraform_comment_syntax'
-          - '--args=--only=terraform_documented_outputs'
-          - '--args=--only=terraform_documented_variables'
-          - '--args=--only=terraform_typed_variables'
-          - '--args=--only=terraform_module_pinned_source'
-          - '--args=--only=terraform_required_version'
-          - '--args=--only=terraform_required_providers'
-          - '--args=--only=terraform_standard_module_structure'
-          - '--args=--only=terraform_workspace_remote'
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+          - "--args=--fix"
+          # - '--args=--only=terraform_deprecated_interpolation'
+          # - '--args=--only=terraform_deprecated_index'
+          # - '--args=--only=terraform_unused_declarations'
+          # - '--args=--only=terraform_comment_syntax'
+          # - '--args=--only=terraform_documented_outputs'
+          # - '--args=--only=terraform_documented_variables'
+          # - '--args=--only=terraform_typed_variables'
+          # Dont need this as it would only apply in examples/ anyway and in
+          # that case we want dynamic sources for testing
+          - "--args=--disable-rule=terraform_module_pinned_source"
+          # - '--args=--only=terraform_naming_convention'
+          # - '--args=--only=terraform_required_version'
+          # - '--args=--only=terraform_required_providers'
+          # - '--args=--only=terraform_standard_module_structure'
+          # - '--args=--only=terraform_workspace_remote'
+
+  # Conventional Commits
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v1.2.0
     hooks:
-      - id: check-added-large-files
-      - id: check-merge-conflict
-      - id: check-yaml
-        args: [--allow-multiple-documents]
-      - id: detect-aws-credentials
-      - id: mixed-line-ending
-      - id: trailing-whitespace
+      - id: conventional-pre-commit
+        stages: [commit-msg]

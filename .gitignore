@@ -10,6 +10,8 @@
 # Local .terraform directories
 **/.terraform/*
 
+**/.terraform.lock.hcl
+
 # .tfstate files
 *.tfstate
 *.tfstate.*
@@ -66,6 +68,7 @@ terraform.rc
 
 # Local History for Visual Studio Code
 .history/
+**/.lh/
 # ------------
 # VisualStudioCode.gitignore END
 # ------------
