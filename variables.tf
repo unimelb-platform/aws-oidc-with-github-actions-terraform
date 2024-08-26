@@ -32,6 +32,12 @@ variable "create_role" {
   default     = "true"
 }
 
+variable "create_provider" {
+  type        = string
+  description = "(optional) Whether to create an OIDC provider. Defaults to true."
+  default     = "true"
+}
+
 variable "iam_role_name" {
   description = "Friendly name of the role. If omitted, Terraform will assign a random, unique name."
   type        = string
