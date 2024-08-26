@@ -29,5 +29,5 @@ data "aws_iam_policy_document" "assume_role" {
 
 data "aws_iam_openid_connect_provider" "github" {
   for_each = var.create_provider ? toset([]) : toset(["github"])
-  url = var.oidc_url
+  url      = var.oidc_url
 }
