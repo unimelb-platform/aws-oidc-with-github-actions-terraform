@@ -27,15 +27,15 @@ variable "github_repositories" {
 }
 
 variable "create_role" {
-  type        = string
+  type        = bool
   description = "(optional) Whether to create an IAM role for the OIDC provider. Defaults to true."
-  default     = "true"
+  default     = true
 }
 
 variable "create_provider" {
-  type        = string
+  type        = bool
   description = "(optional) Whether to create an OIDC provider. Defaults to true."
-  default     = "true"
+  default     = true
 }
 
 variable "iam_role_name" {
